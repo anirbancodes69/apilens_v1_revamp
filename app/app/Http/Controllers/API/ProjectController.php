@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateProjectRequest;
 use App\Http\Resources\ProjectResource;
 use App\Models\Project;
 use App\Services\ProjectService;
+use Illuminate\Support\Facades\Auth;
 
 class ProjectController extends Controller
 {
@@ -17,8 +18,7 @@ class ProjectController extends Controller
 
     public function index()
     {
-        dd(auth()->user());
-        $projects = $this->service->list(auth()->user());
+        $projects = $this->service->list(Auth::user());
 
         return ProjectResource::collection($projects);
     }
@@ -26,7 +26,7 @@ class ProjectController extends Controller
     public function store(StoreProjectRequest $request)
     {
         $project = $this->service->create(
-            auth()->user(),
+            Auth::user(),
             $request->validated()
         );
 
@@ -38,7 +38,8 @@ class ProjectController extends Controller
         $this->authorize('update', $project); // future-safe
 
         $project = $this->service->update(
-            $project,
+            Auth::user(),
+            $project->id,
             $request->validated()
         );
 
@@ -49,7 +50,7 @@ class ProjectController extends Controller
     {
         $this->authorize('delete', $project);
 
-        $this->service->delete($project);
+        $this->service->delete(Auth::user(), $project->id);
 
         return response()->json(['message' => 'Deleted']);
     }
