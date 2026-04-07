@@ -21,13 +21,17 @@ class ProjectService
         return $this->repo->create($data);
     }
 
-    public function update(Project $project, array $data)
+    public function update($user, int $projectId, array $data)
     {
+        $project = $this->repo->findByIdForUser($projectId, $user->id);
+
         return $this->repo->update($project, $data);
     }
 
-    public function delete(Project $project)
+    public function delete($user, int $projectId)
     {
+        $project = $this->repo->findByIdForUser($projectId, $user->id);
+
         return $this->repo->delete($project);
     }
 }

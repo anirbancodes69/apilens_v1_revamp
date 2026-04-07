@@ -11,6 +11,13 @@ class ProjectRepository
         return Project::where('user_id', $userId)->latest()->get();
     }
 
+    public function findByIdForUser(int $projectId, int $userId)
+    {
+        return Project::where('id', $projectId)
+            ->where('user_id', $userId)
+            ->firstOrFail();
+    }
+
     public function create(array $data)
     {
         return Project::create($data);
