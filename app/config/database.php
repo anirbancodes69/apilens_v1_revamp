@@ -114,6 +114,17 @@ return [
             // 'trust_server_certificate' => env('DB_TRUST_SERVER_CERTIFICATE', 'false'),
         ],
 
+        'redis' => [
+            'client' => env('REDIS_CLIENT', 'phpredis'),
+
+            'default' => [
+                'host' => env('REDIS_HOST', 'redis'),
+                'password' => null,
+                'port' => env('REDIS_PORT', 6379),
+                'database' => 0,
+            ],
+        ],
+
     ],
 
     /*
