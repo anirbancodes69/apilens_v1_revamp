@@ -3,7 +3,9 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\AuthController;
+use App\Http\Controllers\API\EndpointController;
 use App\Http\Controllers\API\ProjectController;
+use App\Http\Controllers\API\EndpointCheckController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -17,4 +19,10 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/me', [AuthController::class, 'me']);
 
     Route::apiResource('projects', ProjectController::class);
+
+    Route::apiResource('endpoints', EndpointController::class);
+
+    Route::get('endpoints/{id}/logs', [EndpointCheckController::class, 'logs']);
+    Route::get('endpoints/{id}/stats', [EndpointCheckController::class, 'stats']);
+
 });
