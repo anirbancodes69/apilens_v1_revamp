@@ -40,10 +40,10 @@ services:
     ports:
       - "6379:6379"
 
-  queue:
+  horizon:
     build: ./docker/php
-    container_name: queue
-    command: php artisan queue:work --tries=3 --timeout=60
+    container_name: horizon
+    command: php artisan horizon
     volumes:
       - ./app:/var/www
     env_file:

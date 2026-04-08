@@ -16,14 +16,18 @@ class Endpoint extends Model
         'expected_status',
         'timeout_ms',
         'interval_seconds',
-        'is_active'
+        'is_active',
+        'last_checked_at',
+        'last_status',
+        'last_response_time',
     ];
 
     protected $casts = [
         'headers' => 'array',
         'body' => 'array',
         'is_active' => 'boolean',
-        'last_status' => 'boolean'
+        'last_status' => 'boolean',
+        'last_checked_at' => 'datetime',
     ];
 
     public function project()
